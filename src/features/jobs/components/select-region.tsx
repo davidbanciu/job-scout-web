@@ -15,17 +15,23 @@ type Props = {
 export const SelectRegion = (props: Props) => {
   const { region, selectRegion } = props;
   
-  return <select
-    value={region}
-    onChange={(e) => {
-      const regionId = Number(e.target.value);
-      selectRegion(regionId);
-    }}
-  >
-    {Object.entries(regionMap).map(([id, name]) => (
-      <option key={id} value={id}>
-        {name}
-      </option>
-    ))}
-  </select>
+  return (
+    <div>
+      <p>Region</p>
+      <select
+        className={"border rounded-xxxl h-7 px-2"}
+        value={region}
+        onChange={(e) => {
+          const regionId = Number(e.target.value);
+          selectRegion(regionId);
+        }}
+      >
+        {Object.entries(regionMap).map(([id, name]) => (
+          <option key={id} value={id}>
+            {name}
+          </option>
+        ))}
+      </select>
+    </div>
+  )
 }

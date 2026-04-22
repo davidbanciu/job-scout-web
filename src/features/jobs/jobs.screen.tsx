@@ -6,8 +6,10 @@ import { InputDashboard } from "./input-dashboard";
 
 export const JobsScreen = () => {
   const [region, setRegion] = useState(3);
+  const [title, setTitle] = useState("software");
+  const [published, setPublished] = useState("3");
 
-  const { data: jobs, isFetching, isFetched} = useFetchJobs();
+  const { data: jobs, isFetching, isFetched, fetchData} = useFetchJobs(region, title, published);
   const { data: jobsList, nextPageHandler, previousPageHandler, currentPage, lastPage } = usePagination(jobs, 10)
 
   const isLoadingFirstTime = !isFetched && isFetching;
@@ -19,20 +21,30 @@ export const JobsScreen = () => {
 
   return (
     <>
-      {emptyStateContent}
-      {loadingStateContent}
+      <InputDashboard 
+        region={region} 
+        selectRegion={setRegion}
+        title={title}
+        setTitle={setTitle}
+        published={published}
+        setPublished={setPublished}
+        fetchData={fetchData}
+      />
+      <>
+        {emptyStateContent}
+        {loadingStateContent}
 
-      {isLoadedAndHasData && (
-        <>
-          <InputDashboard region={region} selectRegion={setRegion} />
-          <JobsTable jobsList={jobsList} />
-          <PaginationButtons 
-            previousPageHandler={previousPageHandler} 
-            nextPageHandler={nextPageHandler}
-            currentPage={currentPage}
-            lastPage={lastPage} />
-        </>
-      )}
+        {isLoadedAndHasData && (
+          <>
+            <JobsTable jobsList={jobsList} />
+            <PaginationButtons 
+              previousPageHandler={previousPageHandler} 
+              nextPageHandler={nextPageHandler}
+              currentPage={currentPage}
+              lastPage={lastPage} />
+          </>
+        )}
+      </>
     </>
   );
 }
