@@ -8,10 +8,12 @@ import { memo } from "react";
 
 type Props = {
   jobsList: Job[];
+  displayJob: () => void;
+  selectJob: (id: number) => void;
 }
 
 export const JobsTable = memo((props: Props) => {
-  const { jobsList } = props;
+  const { jobsList, displayJob, selectJob } = props;
 
   return (
     <Table>
@@ -28,7 +30,10 @@ export const JobsTable = memo((props: Props) => {
       </TableHeader>
       <TableBody>
         {jobsList.map((item, index) => (
-          <TableRow key={index} >
+          <TableRow key={index} onClick={() => {
+            selectJob(item.id)
+            displayJob()
+          }} className="cursor-pointer" >
             <TableCell>{truncateString(item.title, 35)}</TableCell>
             <TableCell className={'max-md:hidden'}>{item.company.name}</TableCell>
             <TableCell>{truncateString(item.location, 30)}</TableCell>

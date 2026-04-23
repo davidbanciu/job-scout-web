@@ -12,7 +12,6 @@ type Props = {
 
 export const PaginationButtons = memo((props: Props) => {
   const {previousPageHandler, nextPageHandler, currentPage, lastPage} = props;
-  console.log('re-rendering pagination')
 
   return(
     <div className="flex justify-end items-center m-2 p-2 space-x-2">

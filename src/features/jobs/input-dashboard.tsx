@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Button } from "../../components/ui/button";
 import { AppInput, SelectRegion } from "./components";
 
@@ -11,7 +12,7 @@ type Props = {
   fetchData: () => void
 }
 
-export const InputDashboard = (props: Props) => {
+export const InputDashboard = memo((props: Props) => {
   const { region, selectRegion, title, setTitle, published, setPublished, fetchData } = props;
 
   return (
@@ -34,4 +35,4 @@ export const InputDashboard = (props: Props) => {
       <Button className={"border"} onClick={fetchData}>Fetch</Button>
     </div>
   )
-}
+})
